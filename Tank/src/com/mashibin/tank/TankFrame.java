@@ -1,24 +1,26 @@
 package com.mashibin.tank;
 
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class TankFrame {
-
-	public static void main(String[] args) {
-		Frame f = new Frame();
-		f.setSize(800,600);
-		f.setResizable(false);
-		f.setTitle("TankWar");
-		f.setVisible(true);
-		
-		f.addWindowListener(new WindowAdapter(){
+public class TankFrame extends Frame {
+	public TankFrame(){
+		setSize(800,600);
+		setResizable(false);
+		setTitle("TankWar");
+		setVisible(true);
+		addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
-
+	
+	@Override
+	public void paint(Graphics g){
+		g.fillRect(200, 200, 50, 50);
+	}
 }
