@@ -3,8 +3,15 @@ package com.mashibin.tank;
 import java.awt.Graphics;
 
 public class Tank {
-	public int x=0,y=0;
-	public Dir dir = Dir.UP;
+	private int x=0,y=0;
+	private Dir dir = Dir.UP;
+	private boolean moving = false;
+	public boolean isMoving() {
+		return moving;
+	}
+	public void setMoving(boolean moving) {
+		this.moving = moving;
+	}
 	public Dir getDir() {
 		return dir;
 	}
@@ -19,6 +26,9 @@ public class Tank {
 	}
 	public void paint(Graphics g) {
 		g.fillRect(x, y, 50, 50);
+		if (!moving){
+			return;
+		}
 		switch(dir){
 		case LEFT:
 			x-=SPEED;
@@ -32,10 +42,6 @@ public class Tank {
 		case DOWN:
 			y+=SPEED;
 			break;
-		case STOP:
-			break;
 		}
-		
 	}
-
 }

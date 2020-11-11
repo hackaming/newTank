@@ -80,7 +80,7 @@ public class TankFrame extends Frame {
 			if (bU) myTank.setDir(Dir.UP);
 			if (bD) myTank.setDir(Dir.DOWN);
 			if (!bL&&!bR&&!bU&&!bD){
-				myTank.setDir(Dir.STOP);
+				myTank.setMoving(false);
 			}
 		}
 	}
