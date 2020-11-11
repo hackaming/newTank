@@ -9,6 +9,8 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 	private int x=0,y=0;
+	private Dir dir = Dir.UP;
+	private static final int  SPEED = 10;
 	public TankFrame(){
 		setSize(800,600);
 		setResizable(false);
@@ -26,7 +28,22 @@ public class TankFrame extends Frame {
 	@Override
 	public void paint(Graphics g){
 		g.fillRect(x, y, 50, 50);
-		x += 200;
+		switch(dir){
+		case LEFT:
+			x-=SPEED;
+			break;
+		case RIGHT:
+			x+=SPEED;
+			break;
+		case UP:
+			y-=SPEED;
+			break;
+		case DOWN:
+			y+=SPEED;
+			break;
+		case STOP:
+			break;
+		}
 	}
 	class MyKeyListener extends KeyAdapter{
 		private boolean bL=false,bU=false,bR=false,bD=false;
@@ -46,19 +63,11 @@ public class TankFrame extends Frame {
 			case KeyEvent.VK_DOWN:
 				bD=true;
 				break;
+			default:
+					break;
 			}
-			if (bL){
-				x-=10;
-			}
-			if (bR){
-				x+=10;
-			}
-			if (bU){
-				y-=10;
-			}
-			if (bD){
-				y+=10;
-			}
+			setMainTankDir();
+
 		}
 
 		@Override
@@ -77,6 +86,19 @@ public class TankFrame extends Frame {
 			case KeyEvent.VK_DOWN:
 				bD=false;
 				break;
+			default:
+				break;
+			}
+			setMainTankDir();
+		}
+
+		private void setMainTankDir() {
+			if (bL) dir = Dir.LEFT; 
+			if (bR) dir = Dir.RIGHT;
+			if (bU) dir = Dir.UP;
+			if (bD) dir = Dir.DOWN;
+			if (!bL&&!bR&&!bU&&!bD){
+				dir = Dir.STOP;
 			}
 		}
 	}
