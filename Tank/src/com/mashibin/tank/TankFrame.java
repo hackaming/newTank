@@ -8,11 +8,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class TankFrame extends Frame {
-	Tank myTank = new Tank(200,200,Dir.DOWN);
-	Bullet b = new Bullet(30,30,Dir.DOWN);
-	
+
+	ArrayList<Tank> tkList = new ArrayList<Tank>();
+	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+	private Tank myTank = null;
 	private static final int GAME_WIDTH = 800,GAME_HEIGHT=600;
 	
 	
@@ -21,6 +23,11 @@ public class TankFrame extends Frame {
 		setResizable(false);
 		setTitle("TankWar");
 		setVisible(true);
+		myTank = new Tank(this,200,200,Dir.DOWN);
+		tkList.add(myTank);
+		Bullet b = new Bullet(30,30,Dir.DOWN);
+		bulletList.add(b);
+		
 		addKeyListener(new MyKeyListener());
 		addWindowListener(new WindowAdapter(){
 			@Override
@@ -29,7 +36,12 @@ public class TankFrame extends Frame {
 			}
 		});
 	}
-	
+	public void addBullet(Bullet b){
+		bulletList.add(b);
+	}
+	public void addTank(Tank t){
+		tkList.add(t);
+	}
 	
 	Image offScreenImage = null;
 	@Override
@@ -48,8 +60,12 @@ public class TankFrame extends Frame {
 
 	@Override
 	public void paint(Graphics g){
-		myTank.paint(g);
-		b.paint(g);
+		for (Tank t:tkList){
+			t.paint(g);
+		}
+		for (Bullet b:bulletList){
+			b.paint(g);
+		}
 	}
 	class MyKeyListener extends KeyAdapter{
 		private boolean bL=false,bU=false,bR=false,bD=false;
@@ -90,6 +106,9 @@ public class TankFrame extends Frame {
 				break;
 			case KeyEvent.VK_DOWN:
 				bD=false;
+				break;
+			case KeyEvent.VK_CONTROL:
+				myTank.fire(); //需要把这个地方的mytank控制好，删了，因为已经加入到，LIST中去了，这里会有一个BUG
 				break;
 			default:
 				break;
