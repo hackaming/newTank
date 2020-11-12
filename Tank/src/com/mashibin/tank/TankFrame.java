@@ -16,6 +16,7 @@ public class TankFrame extends Frame {
 
 	List<Tank> tkList = new ArrayList<Tank>();
 	List<Bullet> bulletList = new ArrayList<Bullet>();
+	List<Explode> explodeList = new ArrayList<Explode>();
 	private Tank myTank = null;
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
@@ -80,6 +81,7 @@ public class TankFrame extends Frame {
 		for (int i = 0; i < bulletList.size(); i++) {
 			bulletList.get(i).paint(g);
 		}
+		
 		for (int i = 0; i < bulletList.size(); i++) {
 			int tankid = bulletList.get(i).getOwnerID(); //避免list越界
 			for (int j = 0; j < tkList.size(); j++) {
@@ -96,6 +98,11 @@ public class TankFrame extends Frame {
 					e.printStackTrace();
 				}
 			}
+		}
+
+		for (int i = 0; i < explodeList.size(); i++) { //explosion
+			explodeList.get(i).paint(g);
+			explodeList.remove(i);
 		}
 	}
 
@@ -178,10 +185,6 @@ public class TankFrame extends Frame {
 			} else {
 				myTank.setMoving(true);
 			}
-		}
-
-		public void fire() {
-			Bullet b = new Bullet(30, 30, myTank.getDir(), myTank.getId());
 		}
 	}
 }

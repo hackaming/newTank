@@ -98,7 +98,8 @@ public class Bullet {
 		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),tank.TANK_WIDTH,tank.TANK_HEIGHT);
 		if (rect1.intersects(rect2)){
 			//我感觉这里还要产生一个爆炸
-			
+			Explode e = new Explode(tf, tank.getX(), tank.getY());
+			tf.explodeList.add(e);
 			this.die();
 			tank.die();
 		}

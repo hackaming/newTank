@@ -37,20 +37,6 @@ public class ResourceManager {
 				System.out.println("images/"+i+".gif");
 				explosion.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/"+i+".gif")));
 			}
-			
-			/*
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/0.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/1.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/2.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/3.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/4.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/5.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/6.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/7.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/8.gif")));
-			bulletImagelist.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/9.gif")));
-			*/
-			System.out.println("Initialized"+explosion.size());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
