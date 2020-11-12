@@ -29,7 +29,33 @@ public class Bullet {
 	public void paint(Graphics g){
 		Color c = g.getColor();
 		g.setColor(Color.RED);
-		g.fillOval(x, y, WIDTH, HEIGHT);
+		switch(dir){
+		case LEFT:
+			g.drawImage(ResourceManager.missileL, x, y, null);
+			break;
+		case RIGHT:
+			g.drawImage(ResourceManager.missileR, x, y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceManager.missileD, x, y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceManager.missileU, x, y, null);
+			break;
+		case LEFTDOWN:
+			g.drawImage(ResourceManager.missileLD, x, y, null);
+			break;
+		case LEFTUP:
+			g.drawImage(ResourceManager.missileLU, x, y, null);
+			break;
+		case RIGHTDOWN:
+			g.drawImage(ResourceManager.missileRD, x, y, null);
+			break;
+		case RIGHTUP:
+			g.drawImage(ResourceManager.missileRU, x, y, null);
+			break;
+		}
+		
 		g.setColor(c);
 		move();
 	}
@@ -51,11 +77,6 @@ public class Bullet {
 		if ((x<0) || (y<0) || (x>TankFrame.GAME_WIDTH) || (y> TankFrame.GAME_HEIGHT)){
 			this.bAlive = false;
 			tf.bulletList.remove(this);
-/*			System.out.println("x:"+x+"y:"+y+"TankFrame.Height"+TankFrame.HEIGHT);
-			System.out.println(x<0);
-			System.out.println(y<0);
-			System.out.println(x>TankFrame.GAME_WIDTH);
-			System.out.println(y> TankFrame.HEIGHT);*/
 		}
 		
 	}
