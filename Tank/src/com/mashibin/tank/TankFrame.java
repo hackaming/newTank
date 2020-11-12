@@ -75,7 +75,13 @@ public class TankFrame extends Frame {
 		}
 		for (int i=0;i<bulletList.size();i++){
 			bulletList.get(i).paint(g);
-			
+		}
+		for (int i=0;i<bulletList.size();i++){
+			for (int j=0;j<tkList.size();j++){
+				if (bulletList.get(i).getOwnerID()!=tkList.get(j).getId()){ //判断一子弹是不是和该坦克来自同一辆，否则不检测，避免自杀
+					bulletList.get(i).collidewithTank(tkList.get(j));					
+				}
+			}
 		}
 	}
 	class MyKeyListener extends KeyAdapter{
@@ -122,7 +128,9 @@ public class TankFrame extends Frame {
 				myTank.fire(); //需要把这个地方的mytank控制好，删了，因为已经加入到，LIST中去了，这里会有一个BUG
 				break;
 			case KeyEvent.VK_F1:
-				tkList.add(new Tank(myTank.getTf(),30,30,myTank.getDir(),false));
+				Tank t = new Tank(myTank.getTf(),30,30,myTank.getDir(),false);
+				t.setMoving(true);
+				tkList.add(t);
 				System.out.println("F1 is pressed!");
 				break;
 			default:
@@ -148,7 +156,7 @@ public class TankFrame extends Frame {
 			}
 		}
 		public void fire(){
-			Bullet b = new Bullet(30,30,myTank.getDir());
+			Bullet b = new Bullet(30,30,myTank.getDir(),myTank.getId());
 		}
 	}
 }

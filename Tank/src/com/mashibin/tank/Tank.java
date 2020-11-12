@@ -5,18 +5,50 @@ import java.awt.Graphics;
 
 public class Tank {
 	private int x=5,y=5;
+	
 	private Dir dir = Dir.UP;
 	private boolean moving = false;
 	private TankFrame tf = null;
 	public static final int TANK_WIDTH = ResourceManager.tankD.getWidth();
 	public static final int TANK_HEIGHT = ResourceManager.tankD.getWidth();
+	private boolean bGood = true;
+	private boolean isLive = true;
+	private static int tankIdBase = 1000;
+	private int id;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public boolean isLive() {
+		return isLive;
+	}
+	public void setLive(boolean isLive) {
+		this.isLive = isLive;
+	}
 	public TankFrame getTf() {
 		return tf;
 	}
 	public void setTf(TankFrame tf) {
 		this.tf = tf;
 	}
-	private boolean bGood = true;
+	public void die(){
+		this.isLive = false;
+		tf.tkList.remove(this);
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
 	public boolean isMoving() {
 		return moving;
 	}
@@ -31,17 +63,20 @@ public class Tank {
 	}
 	private static final int  SPEED = 10;
 	public Tank(int x, int y, Dir dir) {
+		this.id =tankIdBase ++;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
 	public Tank(TankFrame tf,int x, int y, Dir dir) {
+		this.id =tankIdBase ++;
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
 	public Tank(TankFrame tf,int x, int y, Dir dir,boolean good) {
+		this.id =tankIdBase ++;
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
@@ -103,7 +138,7 @@ public class Tank {
 	public void fire() {
 		int bx = x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
 		int by = y+Tank.TANK_HEIGHT/2-Bullet.HEIGHT/2;
-		tf.addBullet(new Bullet(this.tf,bx,by,this.dir));
+		tf.addBullet(new Bullet(this.tf,bx,by,this.dir,this.id));
 	}
 
 }

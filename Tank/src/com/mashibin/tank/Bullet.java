@@ -2,11 +2,19 @@ package com.mashibin.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Bullet {
 	private  int x=0,y=0;
 	public static final int SPEED = 20,WIDTH = ResourceManager.missileRU.getWidth(),HEIGHT = ResourceManager.missileRU.getHeight();
 	private Dir dir;
+	private int ownerID;
+	public int getOwnerID() {
+		return ownerID;
+	}
+	public void setOwnerID(int ownerID) {
+		this.ownerID = ownerID;
+	}
 	private boolean bAlive = true;
 	public boolean isbAlive() {
 		return bAlive;
@@ -15,12 +23,14 @@ public class Bullet {
 		this.bAlive = bAlive;
 	}
 	private TankFrame tf;
-	public Bullet(int x, int y, Dir dir) {
+	public Bullet(int x, int y, Dir dir,int id) {
+		this.ownerID = id;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
-	public Bullet(TankFrame tf,int x, int y, Dir dir) {
+	public Bullet(TankFrame tf,int x, int y, Dir dir, int id) {
+		this.ownerID = id;
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
@@ -80,6 +90,18 @@ public class Bullet {
 		}
 		
 	}
-	
-
+	public void die(){
+		this.bAlive = false;
+		tf.bulletList.remove(this);
+	}
+	public void collidewithTank(Tank tank){
+		Rectangle rect1 = new Rectangle(x,y,WIDTH,HEIGHT);
+		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),tank.TANK_WIDTH,tank.TANK_HEIGHT);
+		if (rect1.intersects(rect2)){
+			//我感觉这里还要产生一个爆炸
+			
+			this.die();
+			tank.die();
+		}
+	}
 }
