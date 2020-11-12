@@ -34,7 +34,7 @@ public class Bullet {
 		move();
 	}
 	private void move() {
-		switch(dir){
+		switch(dir){ //这里要加上8个方向的移动,更改XY坐标
 		case LEFT:
 			x-=SPEED;
 			break;

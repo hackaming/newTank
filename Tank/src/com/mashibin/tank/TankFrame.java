@@ -29,6 +29,7 @@ public class TankFrame extends Frame {
 		tkList.add(myTank);
 		Bullet b = new Bullet(this,30,30,Dir.DOWN);
 		bulletList.add(b);
+		ResourceManager r = new ResourceManager();
 		
 		addKeyListener(new MyKeyListener());
 		addWindowListener(new WindowAdapter(){
@@ -135,6 +136,11 @@ public class TankFrame extends Frame {
 			if (bR) myTank.setDir(Dir.RIGHT);
 			if (bU) myTank.setDir(Dir.UP);
 			if (bD) myTank.setDir(Dir.DOWN);
+			
+			if (bL&&bD) myTank.setDir(Dir.LEFTDOWN); 
+			if (bL&&bU) myTank.setDir(Dir.LEFTUP);
+			if (bR&&bD) myTank.setDir(Dir.RIGHTDOWN);
+			if (bR&&bU) myTank.setDir(Dir.RIGHTUP);
 			if (!bL&&!bR&&!bU&&!bD){
 				myTank.setMoving(false);
 			} else {

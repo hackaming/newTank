@@ -16,10 +16,12 @@ public class ImageTest {
 	public void test() throws IOException {
 		//fail("Not yet implemented");
 		
-		BufferedImage image = ImageIO.read(new File("C:/Users/xianming/git/Tank/Tank/src/img/tankU.gif"));
+		//BufferedImage image = ImageIO.read(new File("C:/Users/xianming/git/Tank/Tank/src/img/tankU.gif"));
 		
+		BufferedImage image1 = ImageIO.read(ImageTest.class.getClassLoader().getResourceAsStream("images/tankU.gif"));
 		
-		assertNotNull(image);
+		//assertNotNull(image);
+		assertNotNull(image1);
 	}
 
 }

@@ -51,7 +51,33 @@ public class Tank {
 	public void paint(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, TANK_WIDTH, TANK_HEIGHT);
+		//g.fillRect(x, y, TANK_WIDTH, TANK_HEIGHT);
+		switch(dir){
+		case LEFT:
+			g.drawImage(ResourceManager.tankL, x, y, null);
+			break;
+		case RIGHT:
+			g.drawImage(ResourceManager.tankR, x, y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceManager.tankD, x, y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceManager.tankU, x, y, null);
+			break;
+		case LEFTDOWN:
+			g.drawImage(ResourceManager.tankLD, x, y, null);
+			break;
+		case LEFTUP:
+			g.drawImage(ResourceManager.tankLU, x, y, null);
+			break;
+		case RIGHTDOWN:
+			g.drawImage(ResourceManager.tankRD, x, y, null);
+			break;
+		case RIGHTUP:
+			g.drawImage(ResourceManager.tankRU, x, y, null);
+			break;
+		}
 		g.setColor(c);
 		move();
 	}
@@ -59,7 +85,7 @@ public class Tank {
 		if (!moving){
 			return;
 		}
-		switch(dir){
+		switch(dir){ //这里要加上另外4个方向，一共8个方向的移动，修改X,Y坐标，否则没法斜着走
 		case LEFT:
 			x-=SPEED;
 			break;
@@ -75,7 +101,7 @@ public class Tank {
 		}
 	}
 	public void fire() {
-		tf.addBullet(new Bullet(this.tf,x+TANK_WIDTH/2,y+TANK_HEIGHT/2,this.dir));
+		tf.addBullet(new Bullet(this.tf,x+ResourceManager.tankD.getWidth()/2,y+ResourceManager.tankD.getHeight()/2,this.dir));
 	}
 
 }
