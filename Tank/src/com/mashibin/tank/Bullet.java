@@ -88,7 +88,6 @@ public class Bullet {
 			this.bAlive = false;
 			tf.bulletList.remove(this);
 		}
-		
 	}
 	public void die(){
 		this.bAlive = false;

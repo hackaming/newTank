@@ -134,6 +134,20 @@ public class Tank {
 			y+=SPEED;
 			break;
 		}
+		if ((x<0) || (y<0) || (x>TankFrame.GAME_WIDTH) || (y> TankFrame.GAME_HEIGHT)){
+		}
+		if (x<0){
+			x = TankFrame.GAME_WIDTH;
+		}
+		if (x>TankFrame.GAME_WIDTH){
+			x = 0;
+		}
+		if ((y<0)){
+			y=TankFrame.GAME_HEIGHT;
+		}
+		if (y>TankFrame.GAME_HEIGHT){
+			y=0;
+		}
 	}
 	public void fire() {
 		int bx = x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
