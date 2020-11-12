@@ -7,7 +7,21 @@ public class Bullet {
 	private  int x=0,y=0;
 	private static final int SPEED = 20,WIDTH = 5,HEIGHT = 5;
 	private Dir dir;
+	private boolean bAlive = true;
+	public boolean isbAlive() {
+		return bAlive;
+	}
+	public void setbAlive(boolean bAlive) {
+		this.bAlive = bAlive;
+	}
+	private TankFrame tf;
 	public Bullet(int x, int y, Dir dir) {
+		this.x = x;
+		this.y = y;
+		this.dir = dir;
+	}
+	public Bullet(TankFrame tf,int x, int y, Dir dir) {
+		this.tf = tf;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
@@ -33,6 +47,15 @@ public class Bullet {
 		case DOWN:
 			y+=SPEED;
 			break;
+		}
+		if ((x<0) || (y<0) || (x>TankFrame.GAME_WIDTH) || (y> TankFrame.GAME_HEIGHT)){
+			this.bAlive = false;
+			tf.bulletList.remove(this);
+/*			System.out.println("x:"+x+"y:"+y+"TankFrame.Height"+TankFrame.HEIGHT);
+			System.out.println(x<0);
+			System.out.println(y<0);
+			System.out.println(x>TankFrame.GAME_WIDTH);
+			System.out.println(y> TankFrame.HEIGHT);*/
 		}
 		
 	}

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Tank {
-	private int x=0,y=0;
+	private int x=5,y=5;
 	private Dir dir = Dir.UP;
 	private boolean moving = false;
 	private TankFrame tf = null;
@@ -59,7 +59,7 @@ public class Tank {
 		}
 	}
 	public void fire() {
-		tf.addBullet(new Bullet(x,y,this.dir));
+		tf.addBullet(new Bullet(this.tf,x,y,this.dir));
 	}
 
 }

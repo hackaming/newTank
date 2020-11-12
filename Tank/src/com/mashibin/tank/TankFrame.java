@@ -16,7 +16,8 @@ public class TankFrame extends Frame {
 	List<Tank> tkList = new ArrayList<Tank>();
 	List<Bullet> bulletList = new ArrayList<Bullet>();
 	private Tank myTank = null;
-	private static final int GAME_WIDTH = 800,GAME_HEIGHT=600;
+	public static final int GAME_WIDTH = 800;
+			public static final int GAME_HEIGHT=600;
 	
 	
 	public TankFrame(){
@@ -26,7 +27,7 @@ public class TankFrame extends Frame {
 		setVisible(true);
 		myTank = new Tank(this,200,200,Dir.DOWN);
 		tkList.add(myTank);
-		Bullet b = new Bullet(30,30,Dir.DOWN);
+		Bullet b = new Bullet(this,30,30,Dir.DOWN);
 		bulletList.add(b);
 		
 		addKeyListener(new MyKeyListener());
@@ -61,11 +62,18 @@ public class TankFrame extends Frame {
 
 	@Override
 	public void paint(Graphics g){
+		//设显示子弹数量字符串
+		Color c = g.getColor();
+		g.setColor(Color.GREEN);
+		g.drawString("子弹的数量："+bulletList.size(), 50, 50);
+		g.setColor(c);
+		
 		for (Tank t:tkList){
 			t.paint(g);
 		}
-		for (Bullet b:bulletList){
-			b.paint(g);
+		for (int i=0;i<bulletList.size();i++){
+			bulletList.get(i).paint(g);
+			
 		}
 	}
 	class MyKeyListener extends KeyAdapter{
