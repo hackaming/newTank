@@ -8,8 +8,8 @@ public class Tank {
 	private Dir dir = Dir.UP;
 	private boolean moving = false;
 	private TankFrame tf = null;
-	private static final int TANK_WIDTH = 50;
-	private static final int TANK_HEIGHT = 50;
+	public static final int TANK_WIDTH = ResourceManager.tankD.getWidth();
+	public static final int TANK_HEIGHT = ResourceManager.tankD.getWidth();
 	public TankFrame getTf() {
 		return tf;
 	}
@@ -101,7 +101,9 @@ public class Tank {
 		}
 	}
 	public void fire() {
-		tf.addBullet(new Bullet(this.tf,x+ResourceManager.tankD.getWidth()/2,y+ResourceManager.tankD.getHeight()/2,this.dir));
+		int bx = x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
+		int by = y+Tank.TANK_HEIGHT/2-Bullet.HEIGHT/2;
+		tf.addBullet(new Bullet(this.tf,bx,by,this.dir));
 	}
 
 }

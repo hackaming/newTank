@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class Bullet {
 	private  int x=0,y=0;
-	private static final int SPEED = 20,WIDTH = 5,HEIGHT = 5;
+	public static final int SPEED = 20,WIDTH = ResourceManager.missileRU.getWidth(),HEIGHT = ResourceManager.missileRU.getHeight();
 	private Dir dir;
 	private boolean bAlive = true;
 	public boolean isbAlive() {

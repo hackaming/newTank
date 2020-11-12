@@ -25,11 +25,11 @@ public class TankFrame extends Frame {
 		setResizable(false);
 		setTitle("TankWar");
 		setVisible(true);
-		myTank = new Tank(this,200,200,Dir.DOWN);
-		tkList.add(myTank);
-		Bullet b = new Bullet(this,30,30,Dir.DOWN);
-		bulletList.add(b);
 		ResourceManager r = new ResourceManager();
+		myTank = new Tank(this,Tank.TANK_WIDTH,Tank.TANK_WIDTH,Dir.DOWN);
+		tkList.add(myTank);
+		//Bullet b = new Bullet(this,30,30,Dir.DOWN);
+		//bulletList.add(b);
 		
 		addKeyListener(new MyKeyListener());
 		addWindowListener(new WindowAdapter(){
