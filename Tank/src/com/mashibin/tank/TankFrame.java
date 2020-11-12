@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TankFrame extends Frame {
 
@@ -17,39 +18,42 @@ public class TankFrame extends Frame {
 	List<Bullet> bulletList = new ArrayList<Bullet>();
 	private Tank myTank = null;
 	public static final int GAME_WIDTH = 800;
-	public static final int GAME_HEIGHT=600;
+	public static final int GAME_HEIGHT = 600;
+	private Random random = new Random();
 	
-	
-	public TankFrame(){
-		setSize(GAME_WIDTH,GAME_HEIGHT);
+	public TankFrame() {
+		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
 		setTitle("TankWar");
 		setVisible(true);
 		ResourceManager r = new ResourceManager();
-		myTank = new Tank(this,Tank.TANK_WIDTH,Tank.TANK_WIDTH,Dir.DOWN);
+		myTank = new Tank(this, Tank.TANK_WIDTH, Tank.TANK_WIDTH, Dir.DOWN, true);
 		tkList.add(myTank);
-		//Bullet b = new Bullet(this,30,30,Dir.DOWN);
-		//bulletList.add(b);
-		
+		// Bullet b = new Bullet(this,30,30,Dir.DOWN);
+		// bulletList.add(b);
+
 		addKeyListener(new MyKeyListener());
-		addWindowListener(new WindowAdapter(){
+		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
-	public void addBullet(Bullet b){
+
+	public void addBullet(Bullet b) {
 		bulletList.add(b);
 	}
-	public void addTank(Tank t){
+
+	public void addTank(Tank t) {
 		tkList.add(t);
 	}
-	
+
 	Image offScreenImage = null;
+
 	@Override
 	public void update(Graphics g) {
-		if (offScreenImage == null){
+		if (offScreenImage == null) {
 			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
 		}
 		Graphics gOffScreen = offScreenImage.getGraphics();
@@ -62,48 +66,60 @@ public class TankFrame extends Frame {
 	}
 
 	@Override
-	public void paint(Graphics g){
-		//设显示子弹数量字符串
+	public void paint(Graphics g) {
+		// 设显示子弹数量字符串
 		Color c = g.getColor();
 		g.setColor(Color.GREEN);
-		g.drawString("子弹的数量："+bulletList.size(), 50, 50);
-		g.drawString("坦克的数量："+tkList.size(), 50+300, 50);
+		g.drawString("子弹的数量：" + bulletList.size(), 50, 50);
+		g.drawString("坦克的数量：" + tkList.size(), 50 + 300, 50);
 		g.setColor(c);
 
-		for (int i=0;i<tkList.size();i++){
+		for (int i = 0; i < tkList.size(); i++) {
 			tkList.get(i).paint(g);
 		}
-		for (int i=0;i<bulletList.size();i++){
+		for (int i = 0; i < bulletList.size(); i++) {
 			bulletList.get(i).paint(g);
 		}
-		for (int i=0;i<bulletList.size();i++){
-			for (int j=0;j<tkList.size();j++){
-				if (bulletList.get(i).getOwnerID()!=tkList.get(j).getId()){ //判断一子弹是不是和该坦克来自同一辆，否则不检测，避免自杀
-					bulletList.get(i).collidewithTank(tkList.get(j));					
+		for (int i = 0; i < bulletList.size(); i++) {
+			int tankid = bulletList.get(i).getOwnerID(); //避免list越界
+			for (int j = 0; j < tkList.size(); j++) {
+				try {
+					if (tankid != tkList.get(j).getId()) { // 判断一子弹是不是和该坦克来自同一辆，否则不检测，避免自杀
+						//System.out.println("i="+i+"   bulletlist size："+bulletList.size()+"   j="+j+"   tank list size:"+tkList.size()); //for debugging
+						if (i<bulletList.size() && j < tkList.size()){
+							bulletList.get(i).collidewithTank(tkList.get(j));	
+						}
+					}
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println("Tklist or bulletList indexout of bounds exception detected!");
+					System.out.println("i="+i+"   bulletlist size："+bulletList.size()+"   j="+j+"   tank list size:"+tkList.size());
+					e.printStackTrace();
 				}
 			}
 		}
 	}
-	class MyKeyListener extends KeyAdapter{
-		private boolean bL=false,bU=false,bR=false,bD=false;
+
+	class MyKeyListener extends KeyAdapter {
+		private boolean bL = false, bU = false, bR = false, bD = false;
+
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int key = e.getKeyCode();
-			switch(key){
+			switch (key) {
 			case KeyEvent.VK_LEFT:
-				bL=true;
+				bL = true;
 				break;
 			case KeyEvent.VK_RIGHT:
-				bR=true;
+				bR = true;
 				break;
 			case KeyEvent.VK_UP:
-				bU=true;
+				bU = true;
 				break;
 			case KeyEvent.VK_DOWN:
-				bD=true;
+				bD = true;
 				break;
 			default:
-					break;
+				break;
 			}
 			setMainTankDir();
 		}
@@ -111,24 +127,24 @@ public class TankFrame extends Frame {
 		@Override
 		public void keyReleased(KeyEvent e) {
 			int key = e.getKeyCode();
-			switch(key){
+			switch (key) {
 			case KeyEvent.VK_LEFT:
-				bL=false;
+				bL = false;
 				break;
 			case KeyEvent.VK_RIGHT:
-				bR=false;
+				bR = false;
 				break;
 			case KeyEvent.VK_UP:
-				bU=false;
+				bU = false;
 				break;
 			case KeyEvent.VK_DOWN:
-				bD=false;
+				bD = false;
 				break;
 			case KeyEvent.VK_CONTROL:
-				myTank.fire(); //需要把这个地方的mytank控制好，删了，因为已经加入到，LIST中去了，这里会有一个BUG
+				myTank.fire(); // 需要把这个地方的mytank控制好，删了，因为已经加入到，LIST中去了，这里会有一个BUG
 				break;
 			case KeyEvent.VK_F1:
-				Tank t = new Tank(myTank.getTf(),30,30,myTank.getDir(),false);
+				Tank t = new Tank(myTank.getTf(), random.nextInt(GAME_WIDTH), random.nextInt(GAME_HEIGHT), myTank.getDir(), false); //位置随机
 				t.setMoving(true);
 				tkList.add(t);
 				System.out.println("F1 is pressed!");
@@ -140,23 +156,32 @@ public class TankFrame extends Frame {
 		}
 
 		private void setMainTankDir() {
-			if (bL) myTank.setDir(Dir.LEFT); 
-			if (bR) myTank.setDir(Dir.RIGHT);
-			if (bU) myTank.setDir(Dir.UP);
-			if (bD) myTank.setDir(Dir.DOWN);
-			
-			if (bL&&bD) myTank.setDir(Dir.LEFTDOWN); 
-			if (bL&&bU) myTank.setDir(Dir.LEFTUP);
-			if (bR&&bD) myTank.setDir(Dir.RIGHTDOWN);
-			if (bR&&bU) myTank.setDir(Dir.RIGHTUP);
-			if (!bL&&!bR&&!bU&&!bD){
+			if (bL)
+				myTank.setDir(Dir.LEFT);
+			if (bR)
+				myTank.setDir(Dir.RIGHT);
+			if (bU)
+				myTank.setDir(Dir.UP);
+			if (bD)
+				myTank.setDir(Dir.DOWN);
+
+			if (bL && bD)
+				myTank.setDir(Dir.LEFTDOWN);
+			if (bL && bU)
+				myTank.setDir(Dir.LEFTUP);
+			if (bR && bD)
+				myTank.setDir(Dir.RIGHTDOWN);
+			if (bR && bU)
+				myTank.setDir(Dir.RIGHTUP);
+			if (!bL && !bR && !bU && !bD) {
 				myTank.setMoving(false);
 			} else {
 				myTank.setMoving(true);
 			}
 		}
-		public void fire(){
-			Bullet b = new Bullet(30,30,myTank.getDir(),myTank.getId());
+
+		public void fire() {
+			Bullet b = new Bullet(30, 30, myTank.getDir(), myTank.getId());
 		}
 	}
 }

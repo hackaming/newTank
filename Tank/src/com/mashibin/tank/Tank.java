@@ -2,6 +2,7 @@ package com.mashibin.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Tank {
 	private int x=5,y=5;
@@ -11,10 +12,11 @@ public class Tank {
 	private TankFrame tf = null;
 	public static final int TANK_WIDTH = ResourceManager.tankD.getWidth();
 	public static final int TANK_HEIGHT = ResourceManager.tankD.getWidth();
-	private boolean bGood = true;
+	private boolean bGood = false;
 	private boolean isLive = true;
 	private static int tankIdBase = 1000;
 	private int id;
+	private Random random = new Random();
 	public int getId() {
 		return id;
 	}
@@ -62,20 +64,23 @@ public class Tank {
 		this.dir = dir;
 	}
 	private static final int  SPEED = 10;
-	public Tank(int x, int y, Dir dir) {
+	public Tank(int x, int y, Dir dir,boolean bGood) {
+		this.bGood = bGood;
 		this.id =tankIdBase ++;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
-	public Tank(TankFrame tf,int x, int y, Dir dir) {
+	public Tank(TankFrame tf,int x, int y, Dir dir,boolean bGood) {
+		this.bGood = bGood;
 		this.id =tankIdBase ++;
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
-	public Tank(TankFrame tf,int x, int y, Dir dir,boolean good) {
+	public Tank(TankFrame tf,int x, int y, Dir dir,boolean good,boolean bGood){
+		this.bGood = bGood;
 		this.id =tankIdBase ++;
 		this.tf = tf;
 		this.x = x;
@@ -147,6 +152,9 @@ public class Tank {
 		}
 		if (y>TankFrame.GAME_HEIGHT){
 			y=0;
+		}
+		if (random.nextInt(10)>8 && !bGood){
+			fire();
 		}
 	}
 	public void fire() {
