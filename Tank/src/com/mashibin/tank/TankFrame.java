@@ -17,7 +17,7 @@ public class TankFrame extends Frame {
 	List<Bullet> bulletList = new ArrayList<Bullet>();
 	private Tank myTank = null;
 	public static final int GAME_WIDTH = 800;
-			public static final int GAME_HEIGHT=600;
+	public static final int GAME_HEIGHT=600;
 	
 	
 	public TankFrame(){
@@ -66,10 +66,11 @@ public class TankFrame extends Frame {
 		Color c = g.getColor();
 		g.setColor(Color.GREEN);
 		g.drawString("子弹的数量："+bulletList.size(), 50, 50);
+		g.drawString("坦克的数量："+tkList.size(), 50+300, 50);
 		g.setColor(c);
-		
-		for (Tank t:tkList){
-			t.paint(g);
+
+		for (int i=0;i<tkList.size();i++){
+			tkList.get(i).paint(g);
 		}
 		for (int i=0;i<bulletList.size();i++){
 			bulletList.get(i).paint(g);
@@ -118,6 +119,10 @@ public class TankFrame extends Frame {
 				break;
 			case KeyEvent.VK_CONTROL:
 				myTank.fire(); //需要把这个地方的mytank控制好，删了，因为已经加入到，LIST中去了，这里会有一个BUG
+				break;
+			case KeyEvent.VK_F1:
+				tkList.add(new Tank(myTank.getTf(),30,30,myTank.getDir(),false));
+				System.out.println("F1 is pressed!");
 				break;
 			default:
 				break;
