@@ -31,6 +31,27 @@ public class PropertyManager {
 		}
 		return prop.get(key);
 	}
+	
+	//增加以下代码段，直接获取一个string,int,boolean
+	public String getString(String key){
+		if (null == key){
+			return null;
+		}
+		return (String) prop.get(key);
+	}
+	public int getInt(String key){
+		if (null == key){
+			return 0;
+		}
+		return (int) prop.get(key);
+	}
+	public boolean getBoolean(String key){
+		if (null == key){
+			return false;
+		}
+		return (boolean) prop.get(key);
+	}
+	
 	public static void main(String[] args) {
 		PropertyManager n = new PropertyManager();
 		System.out.println(n.get("initializationOfEnemyTank"));
