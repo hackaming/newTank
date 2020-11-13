@@ -59,14 +59,15 @@ public class ResourceManager {
 			badTank00L = ImageUtil.rotateImage(badTank00D, 90);
 			badTank00LD = ImageUtil.rotateImage(badTank00D, 45);
 			badTank00LU = ImageUtil.rotateImage(badTank00L, 45);
-			missileL = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileL.gif"));
-			missileR = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileR.gif"));
-			missileU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileU.gif"));
-			missileD = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileD.gif"));
-			missileLD = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileLD.gif"));
-			missileLU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileLU.gif"));
-			missileRD = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileRD.gif"));
-			missileRU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileRU.gif"));
+			
+			missileU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/BulletU.png"));
+			missileRU = ImageUtil.rotateImage(missileU, 45);//try
+			missileR = ImageUtil.rotateImage(missileU, 90);
+			missileD = ImageUtil.rotateImage(missileR, 90);
+			missileRD = ImageUtil.rotateImage(missileR, 45);
+			missileL = ImageUtil.rotateImage(missileD, 90);
+			missileLD = ImageUtil.rotateImage(missileD, 45);
+			missileLU = ImageUtil.rotateImage(missileL, 45);
 			
 			for (int i=0;i<10;i++){
 				System.out.println("images/"+i+".gif");
