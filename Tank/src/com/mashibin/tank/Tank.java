@@ -156,6 +156,15 @@ public class Tank {
 		if (random.nextInt(10)>8 && !bGood){
 			fire();
 		}
+		RandomDir();
+	}
+	private void RandomDir() {
+		if(!bGood){
+			int x = random.nextInt(100);
+			if (x>95){
+				this.dir = Dir.values()[random.nextInt(4)];	
+			}
+		}
 	}
 	public void fire() {
 		int bx = x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
