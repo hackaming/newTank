@@ -8,21 +8,34 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public class ResourceManager {
-	public static BufferedImage tankL,tankR,tankU,tankD,tankLD,tankLU,tankRD,tankRU;
+	public static BufferedImage goodTankL,goodTankR,goodTankU,goodTankD,goodTankLD,goodTankLU,goodTankRD,goodTankRU;
+	public static BufferedImage badTankL,badTankR,badTankU,badTankD,badTankLD,badTankLU,badTankRD,badTankRU;
+	
 	public static BufferedImage missileL,missileR,missileU,missileD,missileLD,missileLU,missileRD,missileRU;
 	public static List<BufferedImage> explosion = new ArrayList<>();
 	
 	
 	{
 		try {
-			tankL = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/tankL.gif"));
-			tankR = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/tankR.gif"));
-			tankU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/tankU.gif"));
-			tankD = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/tankD.gif"));
-			tankLD = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/tankLD.gif"));
-			tankLU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/tankLU.gif"));
-			tankRD = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/tankRD.gif"));
-			tankRU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/tankRU.gif"));
+			goodTankU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/GoodTank1.png"));
+			goodTankRU = ImageUtil.rotateImage(goodTankU, 45);//try
+			goodTankR = ImageUtil.rotateImage(goodTankU, 90);
+			goodTankD = ImageUtil.rotateImage(goodTankR, 90);
+			goodTankRD = ImageUtil.rotateImage(goodTankR, 45);
+			goodTankL = ImageUtil.rotateImage(goodTankD, 90);
+			goodTankLD = ImageUtil.rotateImage(goodTankD, 45);
+			goodTankLU = ImageUtil.rotateImage(goodTankL, 45);
+			
+			
+			badTankU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/badTank1.png"));
+			badTankRU = ImageUtil.rotateImage(badTankU, 45);//try
+			badTankR = ImageUtil.rotateImage(badTankU, 90);
+			badTankD = ImageUtil.rotateImage(badTankR, 90);
+			badTankRD = ImageUtil.rotateImage(badTankR, 45);
+			badTankL = ImageUtil.rotateImage(badTankD, 90);
+			badTankLD = ImageUtil.rotateImage(badTankD, 45);
+			badTankLU = ImageUtil.rotateImage(badTankL, 45);
+			
 			
 			missileL = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileL.gif"));
 			missileR = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileR.gif"));

@@ -5,171 +5,226 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class Tank {
-	private int x=5,y=5;
-	
+	private int x = 5, y = 5;
+
 	private Dir dir = Dir.UP;
 	private boolean moving = false;
 	private TankFrame tf = null;
-	public static final int TANK_WIDTH = ResourceManager.tankD.getWidth();
-	public static final int TANK_HEIGHT = ResourceManager.tankD.getWidth();
+	public static final int TANK_WIDTH = ResourceManager.goodTankD.getWidth();
+	public static final int TANK_HEIGHT = ResourceManager.goodTankD.getWidth();
 	private boolean bGood = false;
 	private boolean isLive = true;
 	private static int tankIdBase = 1000;
 	private int id;
 	private Random random = new Random();
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public boolean isLive() {
 		return isLive;
 	}
+
 	public void setLive(boolean isLive) {
 		this.isLive = isLive;
 	}
+
 	public TankFrame getTf() {
 		return tf;
 	}
+
 	public void setTf(TankFrame tf) {
 		this.tf = tf;
 	}
-	public void die(){
+
+	public void die() {
 		this.isLive = false;
 		tf.tkList.remove(this);
 	}
+
 	public int getY() {
 		return y;
 	}
+
 	public void setY(int y) {
 		this.y = y;
 	}
+
 	public int getX() {
 		return x;
 	}
+
 	public void setX(int x) {
 		this.x = x;
 	}
+
 	public boolean isMoving() {
 		return moving;
 	}
+
 	public void setMoving(boolean moving) {
 		this.moving = moving;
 	}
+
 	public Dir getDir() {
 		return dir;
 	}
+
 	public void setDir(Dir dir) {
 		this.dir = dir;
 	}
-	private static final int  SPEED = 10;
-	public Tank(int x, int y, Dir dir,boolean bGood) {
+
+	private static final int SPEED = 10;
+
+	public Tank(int x, int y, Dir dir, boolean bGood) {
 		this.bGood = bGood;
-		this.id =tankIdBase ++;
+		this.id = tankIdBase++;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
-	public Tank(TankFrame tf,int x, int y, Dir dir,boolean bGood) {
+
+	public Tank(TankFrame tf, int x, int y, Dir dir, boolean bGood) {
 		this.bGood = bGood;
-		this.id =tankIdBase ++;
+		this.id = tankIdBase++;
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
-	public Tank(TankFrame tf,int x, int y, Dir dir,boolean good,boolean bGood){
+
+	public Tank(TankFrame tf, int x, int y, Dir dir, boolean good, boolean bGood) {
 		this.bGood = bGood;
-		this.id =tankIdBase ++;
+		this.id = tankIdBase++;
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.bGood = good;
 	}
+
 	public void paint(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.YELLOW);
-		//g.fillRect(x, y, TANK_WIDTH, TANK_HEIGHT);
-		switch(dir){
+		// g.fillRect(x, y, TANK_WIDTH, TANK_HEIGHT);
+		switch (dir) {
 		case LEFT:
-			g.drawImage(ResourceManager.tankL, x, y, null);
+			g.drawImage(bGood ? ResourceManager.goodTankL : ResourceManager.badTankL, x, y, null);
 			break;
 		case RIGHT:
-			g.drawImage(ResourceManager.tankR, x, y, null);
+			g.drawImage(bGood ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
 			break;
 		case DOWN:
-			g.drawImage(ResourceManager.tankD, x, y, null);
+			g.drawImage(bGood ? ResourceManager.goodTankD : ResourceManager.badTankD, x, y, null);
 			break;
 		case UP:
-			g.drawImage(ResourceManager.tankU, x, y, null);
+			g.drawImage(bGood ? ResourceManager.goodTankU : ResourceManager.badTankU, x, y, null);
 			break;
 		case LEFTDOWN:
-			g.drawImage(ResourceManager.tankLD, x, y, null);
+			g.drawImage(bGood ? ResourceManager.goodTankLD : ResourceManager.badTankLD, x, y, null);
 			break;
 		case LEFTUP:
-			g.drawImage(ResourceManager.tankLU, x, y, null);
+			g.drawImage(bGood ? ResourceManager.goodTankLU : ResourceManager.badTankLU, x, y, null);
 			break;
 		case RIGHTDOWN:
-			g.drawImage(ResourceManager.tankRD, x, y, null);
+			g.drawImage(bGood ? ResourceManager.goodTankRD : ResourceManager.badTankRD, x, y, null);
 			break;
 		case RIGHTUP:
-			g.drawImage(ResourceManager.tankRU, x, y, null);
+			g.drawImage(bGood ? ResourceManager.goodTankRU : ResourceManager.badTankRU, x, y, null);
 			break;
 		}
+
 		g.setColor(c);
 		move();
 	}
-	public void move(){
-		if (!moving){
+
+	public void move() {
+		if (!moving) {
 			return;
 		}
-		switch(dir){ //这里要加上另外4个方向，一共8个方向的移动，修改X,Y坐标，否则没法斜着走
+		switch (dir) { // 这里要加上另外4个方向，一共8个方向的移动，修改X,Y坐标，否则没法斜着走
 		case LEFT:
-			x-=SPEED;
+			x -= SPEED;
 			break;
 		case RIGHT:
-			x+=SPEED;
+			x += SPEED;
 			break;
 		case UP:
-			y-=SPEED;
+			y -= SPEED;
 			break;
 		case DOWN:
-			y+=SPEED;
+			y += SPEED;
+			break;
+		case LEFTDOWN:
+			x -= SPEED;
+			y += SPEED;
+			break;
+		case LEFTUP:
+			x -= SPEED;
+			y -= SPEED;
+			break;
+		case RIGHTDOWN:
+			x += SPEED;
+			y += SPEED;
+			break;
+		case RIGHTUP:
+			x += SPEED;
+			y -= SPEED;
 			break;
 		}
-		if ((x<0) || (y<0) || (x>TankFrame.GAME_WIDTH) || (y> TankFrame.GAME_HEIGHT)){
+		if ((x < 0) || (y < 0) || (x > TankFrame.GAME_WIDTH) || (y > TankFrame.GAME_HEIGHT)) {
 		}
-		if (x<0){
+		if (x < 0) {
 			x = TankFrame.GAME_WIDTH;
 		}
-		if (x>TankFrame.GAME_WIDTH){
+		if (x > TankFrame.GAME_WIDTH) {
 			x = 0;
 		}
-		if ((y<0)){
-			y=TankFrame.GAME_HEIGHT;
+		if ((y < 0)) {
+			y = TankFrame.GAME_HEIGHT;
 		}
-		if (y>TankFrame.GAME_HEIGHT){
-			y=0;
+		if (y > TankFrame.GAME_HEIGHT) {
+			y = 0;
 		}
-		if (random.nextInt(10)>8 && !bGood){
+		if (random.nextInt(10) > 8 && !bGood) {
 			fire();
 		}
 		RandomDir();
+		if (bGood && isLive) {
+			// 加入声音，这里要新建一个线程，等待它结束，自己的，活 着的才出声音，要不太吵了
+			new Thread(new Runnable() {
+				public void run() {
+					new Audio("audio/tank_move.wav").play();
+				}
+			}).start();
+		}
 	}
+
 	private void RandomDir() {
-		if(!bGood){
+		if (!bGood) {
 			int x = random.nextInt(100);
-			if (x>95){
-				this.dir = Dir.values()[random.nextInt(4)];	
+			if (x > 95) {
+				this.dir = Dir.values()[random.nextInt(4)];
 			}
 		}
 	}
-	public void fire() {
-		int bx = x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
-		int by = y+Tank.TANK_HEIGHT/2-Bullet.HEIGHT/2;
-		tf.addBullet(new Bullet(this.tf,bx,by,this.dir,this.id));
-	}
 
+	public void fire() {
+		int bx = x + Tank.TANK_WIDTH / 2 - Bullet.WIDTH / 2;
+		int by = y + Tank.TANK_HEIGHT / 2 - Bullet.HEIGHT / 2;
+		tf.addBullet(new Bullet(this.tf, bx, by, this.dir, this.id));
+		// 加入开火的声音 自己的才出声音
+		if (bGood) {
+			new Thread(new Runnable() {
+				public void run() {
+					new Audio("audio/tank_fire.wav").play();
+				}
+			}).start();
+		}
+	}
 }

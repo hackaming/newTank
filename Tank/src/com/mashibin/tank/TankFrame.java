@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 
 public class TankFrame extends Frame {
-
 	List<Tank> tkList = new ArrayList<Tank>();
 	List<Bullet> bulletList = new ArrayList<Bullet>();
 	List<Explode> explodeList = new ArrayList<Explode>();
@@ -21,6 +20,7 @@ public class TankFrame extends Frame {
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	private Random random = new Random();
+	private boolean stopGame = false;
 	
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -37,9 +37,20 @@ public class TankFrame extends Frame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				stopGame = false; ///如何等待这个声音的线程结束？？需要同步
 				System.exit(0);
 			}
 		});
+		//加入声音，这里要新建一个线程，等待它结束
+		new Thread(new Runnable(){
+			public void run(){
+				while (!stopGame){
+					new Audio("audio/war1.wav").play();
+				}
+			}
+		}).start();
+		{
+		}
 	}
 
 	public void addBullet(Bullet b) {
@@ -171,7 +182,6 @@ public class TankFrame extends Frame {
 				myTank.setDir(Dir.UP);
 			if (bD)
 				myTank.setDir(Dir.DOWN);
-
 			if (bL && bD)
 				myTank.setDir(Dir.LEFTDOWN);
 			if (bL && bU)

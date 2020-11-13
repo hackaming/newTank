@@ -83,6 +83,18 @@ public class Bullet {
 		case DOWN:
 			y+=SPEED;
 			break;
+		case LEFTDOWN:
+			x-=SPEED;y+=SPEED;
+			break;
+		case LEFTUP:
+			x-=SPEED;y-=SPEED;
+			break;
+		case RIGHTDOWN:
+			x+=SPEED;y+=SPEED;
+			break;
+		case RIGHTUP:
+			x+=SPEED;y-=SPEED;
+			break;
 		}
 		if ((x<0) || (y<0) || (x>TankFrame.GAME_WIDTH) || (y> TankFrame.GAME_HEIGHT)){
 			this.bAlive = false;

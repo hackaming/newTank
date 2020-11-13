@@ -17,14 +17,18 @@ public class Explode {
 		this.bAlive = bAlive;
 	}
 	private TankFrame tf;
-	public Explode(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
+
 	public Explode(TankFrame tf,int x, int y) {
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
+		new Thread(new Runnable(){
+			public void run(){
+				new Audio("audio/explode.wav").play();
+			}
+		}).start();
+		{
+		}
 	}
 	public void paint(Graphics g){
 		Color c = g.getColor();
