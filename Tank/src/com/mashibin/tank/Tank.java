@@ -169,10 +169,7 @@ public class Tank {
 				g.drawImage(bGood ? ResourceManager.goodTank00RU : ResourceManager.badTank00RU, x, y, null);
 				break;
 			}
-			
 		}
-		
-
 		g.setColor(c);
 		move();
 	}
