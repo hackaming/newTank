@@ -5,7 +5,18 @@ import java.util.Properties;
 
 public class PropertyManager {
 	private static Properties prop = new Properties();
-
+	private static PropertyManager instance = null;
+	private PropertyManager(){
+		
+	}
+	
+	public static PropertyManager getInstance(){
+		if (null == instance){
+			instance = new PropertyManager();
+		}
+		return instance;
+	}
+	
 	static {
 		try {
 			prop.load(PropertyManager.class.getClassLoader().getSystemResourceAsStream("configuration.ini"));

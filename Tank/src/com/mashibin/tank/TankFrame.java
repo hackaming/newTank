@@ -17,12 +17,14 @@ public class TankFrame extends Frame {
 	List<Bullet> bulletList = new ArrayList<Bullet>();
 	List<Explode> explodeList = new ArrayList<Explode>();
 	private Tank myTank = null;
-	public static final int GAME_WIDTH = 800;
-	public static final int GAME_HEIGHT = 600;
+	public static int GAME_WIDTH;
+	public static int GAME_HEIGHT;
 	private Random random = new Random();
 	private boolean stopGame = false;
 	
-	public TankFrame() {
+	public TankFrame(int w,int h) {
+		this.GAME_WIDTH = w;
+		this.GAME_HEIGHT = h;
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
 		setTitle("TankWar");

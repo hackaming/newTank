@@ -2,6 +2,7 @@ package com.mashibin.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Tank {
@@ -18,6 +19,15 @@ public class Tank {
 	private int id;
 	private Random random = new Random();
 	private int iRotate = 1; //用来循环显示两图坦克用
+	private static final int SPEED = Integer.parseInt(PropertyManager.getInstance().get("tankspeed").toString());
+	private Rectangle rect;
+	public Rectangle getRect() {
+		return rect;
+	}
+
+	public void setRect(Rectangle rect) {
+		this.rect = rect;
+	}
 
 	public int getId() {
 		return id;
@@ -80,9 +90,8 @@ public class Tank {
 		this.dir = dir;
 	}
 
-	private static final int SPEED = 10;
-
 	public Tank(int x, int y, Dir dir, boolean bGood) {
+		rect = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
 		this.bGood = bGood;
 		this.id = tankIdBase++;
 		this.x = x;
@@ -91,6 +100,7 @@ public class Tank {
 	}
 
 	public Tank(TankFrame tf, int x, int y, Dir dir, boolean bGood) {
+		rect = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
 		this.bGood = bGood;
 		this.id = tankIdBase++;
 		this.tf = tf;
@@ -100,6 +110,7 @@ public class Tank {
 	}
 
 	public Tank(TankFrame tf, int x, int y, Dir dir, boolean good, boolean bGood) {
+		rect = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
 		this.bGood = bGood;
 		this.id = tankIdBase++;
 		this.tf = tf;
@@ -226,6 +237,8 @@ public class Tank {
 			fire();
 		}
 		RandomDir();
+		rect.x = x;
+		rect.y = y;
 		if (bGood && isLive) {
 			// 加入声音，这里要新建一个线程，等待它结束，自己的，活 着的才出声音，要不太吵了
 			new Thread(new Runnable() {

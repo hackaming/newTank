@@ -6,9 +6,10 @@ import java.awt.Rectangle;
 
 public class Bullet {
 	private  int x=0,y=0;
-	public static final int SPEED = 20,WIDTH = ResourceManager.missileRU.getWidth(),HEIGHT = ResourceManager.missileRU.getHeight();
+	public static final int SPEED = Integer.parseInt(PropertyManager.getInstance().get("bulletspeed").toString()),WIDTH = ResourceManager.missileRU.getWidth(),HEIGHT = ResourceManager.missileRU.getHeight();
 	private Dir dir;
 	private int ownerID;
+	Rectangle rect;
 	public int getOwnerID() {
 		return ownerID;
 	}
@@ -24,12 +25,14 @@ public class Bullet {
 	}
 	private TankFrame tf;
 	public Bullet(int x, int y, Dir dir,int id) {
+		rect = new Rectangle(x,y,WIDTH,HEIGHT);
 		this.ownerID = id;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
 	public Bullet(TankFrame tf,int x, int y, Dir dir, int id) {
+		rect = new Rectangle(x,y,WIDTH,HEIGHT);
 		this.ownerID = id;
 		this.tf = tf;
 		this.x = x;
@@ -96,6 +99,9 @@ public class Bullet {
 			x+=SPEED;y-=SPEED;
 			break;
 		}
+		rect.x = x;
+		rect.y = y;
+		
 		if ((x<0) || (y<0) || (x>TankFrame.GAME_WIDTH) || (y> TankFrame.GAME_HEIGHT)){
 			this.bAlive = false;
 			tf.bulletList.remove(this);
@@ -106,14 +112,12 @@ public class Bullet {
 		tf.bulletList.remove(this);
 	}
 	public void collidewithTank(Tank tank){
-		Rectangle rect1 = new Rectangle(x,y,WIDTH,HEIGHT);
-		Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),tank.TANK_WIDTH,tank.TANK_HEIGHT);
-		if (rect1.intersects(rect2)){
+		if (this.rect.intersects(tank.getRect())){
 			//我感觉这里还要产生一个爆炸
-			Explode e = new Explode(tf, tank.getX(), tank.getY());
-			tf.explodeList.add(e);
 			this.die();
 			tank.die();
+			Explode e = new Explode(tf, tank.getX(), tank.getY());
+			tf.explodeList.add(e);
 		}
 	}
 }
