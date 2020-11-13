@@ -11,12 +11,16 @@ public class ResourceManager {
 	public static BufferedImage goodTankL,goodTankR,goodTankU,goodTankD,goodTankLD,goodTankLU,goodTankRD,goodTankRU;
 	public static BufferedImage badTankL,badTankR,badTankU,badTankD,badTankLD,badTankLU,badTankRD,badTankRU;
 	
+	public static BufferedImage goodTank00L,goodTank00R,goodTank00U,goodTank00D,goodTank00LD,goodTank00LU,goodTank00RD,goodTank00RU;
+	public static BufferedImage badTank00L,badTank00R,badTank00U,badTank00D,badTank00LD,badTank00LU,badTank00RD,badTank00RU;
+	
 	public static BufferedImage missileL,missileR,missileU,missileD,missileLD,missileLU,missileRD,missileRU;
 	public static List<BufferedImage> explosion = new ArrayList<>();
 	
 	
 	{
 		try {
+		//第一张坦 克图片，
 			goodTankU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/GoodTank1.png"));
 			goodTankRU = ImageUtil.rotateImage(goodTankU, 45);//try
 			goodTankR = ImageUtil.rotateImage(goodTankU, 90);
@@ -36,7 +40,25 @@ public class ResourceManager {
 			badTankLD = ImageUtil.rotateImage(badTankD, 45);
 			badTankLU = ImageUtil.rotateImage(badTankL, 45);
 			
+			//第二辆坦 克图片，这样可以闪烁
+			goodTank00U = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/GoodTank2.png"));
+			goodTank00RU = ImageUtil.rotateImage(goodTank00U, 45);//try
+			goodTank00R = ImageUtil.rotateImage(goodTank00U, 90);
+			goodTank00D = ImageUtil.rotateImage(goodTank00R, 90);
+			goodTank00RD = ImageUtil.rotateImage(goodTank00R, 45);
+			goodTank00L = ImageUtil.rotateImage(goodTank00D, 90);
+			goodTank00LD = ImageUtil.rotateImage(goodTank00D, 45);
+			goodTank00LU = ImageUtil.rotateImage(goodTank00L, 45);
 			
+			
+			badTank00U = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/badTank2.png"));
+			badTank00RU = ImageUtil.rotateImage(badTank00U, 45);//try
+			badTank00R = ImageUtil.rotateImage(badTank00U, 90);
+			badTank00D = ImageUtil.rotateImage(badTank00R, 90);
+			badTank00RD = ImageUtil.rotateImage(badTank00R, 45);
+			badTank00L = ImageUtil.rotateImage(badTank00D, 90);
+			badTank00LD = ImageUtil.rotateImage(badTank00D, 45);
+			badTank00LU = ImageUtil.rotateImage(badTank00L, 45);
 			missileL = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileL.gif"));
 			missileR = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileR.gif"));
 			missileU = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/missileU.gif"));

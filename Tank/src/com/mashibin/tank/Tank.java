@@ -17,6 +17,7 @@ public class Tank {
 	private static int tankIdBase = 1000;
 	private int id;
 	private Random random = new Random();
+	private int iRotate = 1; //用来循环显示两图坦克用
 
 	public int getId() {
 		return id;
@@ -112,32 +113,65 @@ public class Tank {
 		Color c = g.getColor();
 		g.setColor(Color.YELLOW);
 		// g.fillRect(x, y, TANK_WIDTH, TANK_HEIGHT);
-		switch (dir) {
-		case LEFT:
-			g.drawImage(bGood ? ResourceManager.goodTankL : ResourceManager.badTankL, x, y, null);
-			break;
-		case RIGHT:
-			g.drawImage(bGood ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
-			break;
-		case DOWN:
-			g.drawImage(bGood ? ResourceManager.goodTankD : ResourceManager.badTankD, x, y, null);
-			break;
-		case UP:
-			g.drawImage(bGood ? ResourceManager.goodTankU : ResourceManager.badTankU, x, y, null);
-			break;
-		case LEFTDOWN:
-			g.drawImage(bGood ? ResourceManager.goodTankLD : ResourceManager.badTankLD, x, y, null);
-			break;
-		case LEFTUP:
-			g.drawImage(bGood ? ResourceManager.goodTankLU : ResourceManager.badTankLU, x, y, null);
-			break;
-		case RIGHTDOWN:
-			g.drawImage(bGood ? ResourceManager.goodTankRD : ResourceManager.badTankRD, x, y, null);
-			break;
-		case RIGHTUP:
-			g.drawImage(bGood ? ResourceManager.goodTankRU : ResourceManager.badTankRU, x, y, null);
-			break;
+		iRotate++;
+		if ( iRotate > 5){ //每循环5次，就显示另外一辆，以此做出动画的效果，总共有两张图片
+			iRotate = 0;
+			switch (dir) {
+			case LEFT:
+				g.drawImage(bGood ? ResourceManager.goodTankL : ResourceManager.badTankL, x, y, null);
+				break;
+			case RIGHT:
+				g.drawImage(bGood ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(bGood ? ResourceManager.goodTankD : ResourceManager.badTankD, x, y, null);
+				break;
+			case UP:
+				g.drawImage(bGood ? ResourceManager.goodTankU : ResourceManager.badTankU, x, y, null);
+				break;
+			case LEFTDOWN:
+				g.drawImage(bGood ? ResourceManager.goodTankLD : ResourceManager.badTankLD, x, y, null);
+				break;
+			case LEFTUP:
+				g.drawImage(bGood ? ResourceManager.goodTankLU : ResourceManager.badTankLU, x, y, null);
+				break;
+			case RIGHTDOWN:
+				g.drawImage(bGood ? ResourceManager.goodTankRD : ResourceManager.badTankRD, x, y, null);
+				break;
+			case RIGHTUP:
+				g.drawImage(bGood ? ResourceManager.goodTankRU : ResourceManager.badTankRU, x, y, null);
+				break;
+			}
+		} else {
+			switch (dir) {
+			case LEFT:
+				g.drawImage(bGood ? ResourceManager.goodTank00L : ResourceManager.badTank00L, x, y, null);
+				break;
+			case RIGHT:
+				g.drawImage(bGood ? ResourceManager.goodTank00R : ResourceManager.badTank00R, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(bGood ? ResourceManager.goodTank00D : ResourceManager.badTank00D, x, y, null);
+				break;
+			case UP:
+				g.drawImage(bGood ? ResourceManager.goodTank00U : ResourceManager.badTank00U, x, y, null);
+				break;
+			case LEFTDOWN:
+				g.drawImage(bGood ? ResourceManager.goodTank00LD : ResourceManager.badTank00LD, x, y, null);
+				break;
+			case LEFTUP:
+				g.drawImage(bGood ? ResourceManager.goodTank00LU : ResourceManager.badTank00LU, x, y, null);
+				break;
+			case RIGHTDOWN:
+				g.drawImage(bGood ? ResourceManager.goodTank00RD : ResourceManager.badTank00RD, x, y, null);
+				break;
+			case RIGHTUP:
+				g.drawImage(bGood ? ResourceManager.goodTank00RU : ResourceManager.badTank00RU, x, y, null);
+				break;
+			}
+			
 		}
+		
 
 		g.setColor(c);
 		move();
