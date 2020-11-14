@@ -73,7 +73,7 @@ public class Audio {
 
 			sourceDataLine.drain();
 			sourceDataLine.close();
-
+			System.out.println("Play is called! in Audio class");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

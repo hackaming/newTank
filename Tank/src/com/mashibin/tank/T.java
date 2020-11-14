@@ -9,7 +9,7 @@ import java.util.Random;
 public class T {
 	public static void main(String[] args) {
 		
-		PropertyManager p = PropertyManager.getInstance();
+		Properties p = PropertyManager.INSTANCE.getInstance();
 		
 		int tankCount = Integer.parseInt(p.get("initializationOfEnemyTank").toString());
 		int width = Integer.parseInt(p.get("gamewidth").toString());
@@ -20,6 +20,7 @@ public class T {
 		
 		for ( int i=0;i<tankCount;i++){
 			Tank t = new Tank(tf,50+i*50,40+i*50,Dir.values()[new Random().nextInt(4)],false);
+			System.out.println(t.getId()+" joined!");
 			t.setMoving(true);
 			tf.tkList.add(t);
 		}

@@ -30,7 +30,8 @@ public class TankFrame extends Frame {
 		setTitle("TankWar");
 		setVisible(true);
 		ResourceManager r = new ResourceManager();
-		myTank = new Tank(this, Tank.TANK_WIDTH, Tank.TANK_WIDTH, Dir.DOWN, true);
+		myTank = new Tank(this, GAME_WIDTH-300, GAME_HEIGHT-300, Dir.UP, true);
+		System.out.println("MyTank joined!");
 		tkList.add(myTank);
 		// Bullet b = new Bullet(this,30,30,Dir.DOWN);
 		// bulletList.add(b);
