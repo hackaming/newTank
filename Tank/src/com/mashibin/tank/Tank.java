@@ -128,7 +128,7 @@ public class Tank extends BaseTank{
 		this(x,y,dir,bGood);
 		this.tf = tf;
 	}
-
+	@Override
 	public void paint(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.YELLOW);
@@ -270,14 +270,23 @@ public class Tank extends BaseTank{
 	}
 	
 	public void fire() {
-		fs.fire(this);
+		//fs.fire(this);
+		/**
+		 * 2020/11/18 :14:43下午
+		 */
+		//把上面这行注掉，变成不要开火的策略模式了，改为直接NEW，这样改动小一点，后面还要改回来。
+		int bx = this.getX() + Tank.TANK_WIDTH / 2 - Bullet.WIDTH / 2;
+		int by = this.getY() + Tank.TANK_HEIGHT / 2 - Bullet.HEIGHT / 2;
+		for (Dir dir:Dir.values()){
+			//改为用抽象工厂产生子
+			this.tf.gf.createBullet(this.tf, bx, by, dir, this.id);
+			//new Bullet(t.tf, bx, by, dir, t.id);
+		}
+		//改为audio thread
+		new Thread(new AudioThread("audio/tank_fire.wav")).start();
+		//new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
 
 
 
-	@Override
-	public void pain(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
 }
