@@ -1,6 +1,8 @@
 package com.mashibin.tank.abstractFactory;
 
+import com.mashibin.tank.Bullet;
 import com.mashibin.tank.Dir;
+import com.mashibin.tank.Explode;
 import com.mashibin.tank.Tank;
 import com.mashibin.tank.TankFrame;
 
@@ -27,13 +29,13 @@ public class DefaultFactory  extends GameFactory{
 
 	@Override
 	public BaseExplode createExplode(TankFrame tf, int x, int y) {
-		return null;
+		return new Explode(tf,x,y);
 	}
 
 	@Override
 	public BaseBullet createBullet(TankFrame tf, int x, int y, Dir dir, int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Bullet(tf,x,y,dir,id);
 	}
 
 }

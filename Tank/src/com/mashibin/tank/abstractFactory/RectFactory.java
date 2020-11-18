@@ -29,7 +29,7 @@ public class RectFactory extends GameFactory{
 	@Override
 	public BaseBullet createBullet(TankFrame tf, int x, int y, Dir dir, int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return new RectBullet(tf,x,y,dir,id);
 	}
 
 }

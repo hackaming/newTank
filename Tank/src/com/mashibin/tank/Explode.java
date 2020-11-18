@@ -41,7 +41,7 @@ public class Explode extends BaseExplode{
 		
 /*		int bx = x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
 		int by = y+Tank.TANK_HEIGHT/2-Bullet.HEIGHT/2;*/
-		
+		//System.out.println("Default explode called!");
 		for (int i=0;i<ResourceManager.explosion.size();i++){
 			g.drawImage(ResourceManager.explosion.get(i), x, y, null);
 			try {
