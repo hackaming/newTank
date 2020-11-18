@@ -7,7 +7,7 @@ public class GoodTankFireStrategy implements FireStrategy{
 		int bx = t.getX() + Tank.TANK_WIDTH / 2 - Bullet.WIDTH / 2;
 		int by = t.getY() + Tank.TANK_HEIGHT / 2 - Bullet.HEIGHT / 2;
 		for (Dir dir:Dir.values()){
-			//改为用抽象工厂产生子弹
+			//改为用抽象工厂产生子
 			t.tf.gf.createBullet(t.tf, bx, by, dir, t.id);
 			//new Bullet(t.tf, bx, by, dir, t.id);
 		}

@@ -1,13 +1,20 @@
-package com.mashibin.tank;
+package com.mashibin.tank.abstractFactory;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import com.mashibin.tank.AudioThread;
+import com.mashibin.tank.Dir;
+import com.mashibin.tank.FireStrategy;
+import com.mashibin.tank.PropertyManager;
+import com.mashibin.tank.PropertyManager_old_Works;
+import com.mashibin.tank.ResourceManager;
+import com.mashibin.tank.TankFrame;
 import com.mashibin.tank.abstractFactory.BaseTank;
 
-public class Tank extends BaseTank{
+public class RectTank extends BaseTank{
 	private int x = 5, y = 5;
 
 	Dir dir = Dir.UP;
@@ -94,7 +101,7 @@ public class Tank extends BaseTank{
 		this.dir = dir;
 	}
 	//好像这几段代码可以重构一下，没必要重写。没必要写两个构造
-	public Tank(int x, int y, Dir dir, boolean bGood) {
+	public RectTank(int x, int y, Dir dir, boolean bGood) {
 		rect = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
 		this.bGood = bGood;
 		this.id = tankIdBase++;
@@ -124,7 +131,7 @@ public class Tank extends BaseTank{
 		}
 	}
 
-	public Tank(TankFrame tf, int x, int y, Dir dir, boolean bGood) {
+	public RectTank(TankFrame tf, int x, int y, Dir dir, boolean bGood) {
 		this(x,y,dir,bGood);
 		this.tf = tf;
 	}
@@ -268,16 +275,8 @@ public class Tank extends BaseTank{
 			}
 		}
 	}
-	
+
 	public void fire() {
 		fs.fire(this);
-	}
-
-
-
-	@Override
-	public void pain(Graphics g) {
-		// TODO Auto-generated method stub
-		
 	}
 }

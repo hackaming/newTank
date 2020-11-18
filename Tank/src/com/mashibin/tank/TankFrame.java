@@ -19,7 +19,7 @@ import com.mashibin.tank.abstractFactory.GameFactory;
 import com.mashibin.tank.abstractFactory.RectFactory;
 
 public class TankFrame extends Frame {
-	List<Tank> tkList = new ArrayList<Tank>();
+	public List<Tank> tkList = new ArrayList<Tank>();
 	public List<BaseBullet> bulletList = new ArrayList<>();
 	public List<BaseExplode> explodeList = new ArrayList<>();
 	public GameFactory gf = RectFactory.getInstance();
