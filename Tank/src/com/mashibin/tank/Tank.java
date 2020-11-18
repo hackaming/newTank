@@ -10,20 +10,19 @@ import com.mashibin.tank.abstractFactory.BaseTank;
 public class Tank extends BaseTank{
 	private int x = 5, y = 5;
 
-	Dir dir = Dir.UP;
+	private Dir dir = Dir.UP;
 	private boolean moving = false;
-	public TankFrame tf = null;
+	private TankFrame tf = null;
 	public static final int TANK_WIDTH = ResourceManager.goodTankD.getWidth();
 	public static final int TANK_HEIGHT = ResourceManager.goodTankD.getWidth();
-	boolean bGood = false;
+	private boolean bGood = false;
 	private boolean isLive = true;
 	private static int tankIdBase = 1000;
-	int id;
+	private int id;
 	private Random random = new Random();
 	private int iRotate = 1; //用来循环显示两图坦克用
-	private static final int SPEED = Integer.parseInt(PropertyManager_old_Works.getInstance().get("tankspeed").toString());
+	private static final int SPEED = Integer.parseInt(PropertyManager.getInstance().get("tankspeed").toString());
 	private Rectangle rect;
-	private FireStrategy fs;
 	public Rectangle getRect() {
 		return rect;
 	}
@@ -59,7 +58,6 @@ public class Tank extends BaseTank{
 	public void die() {
 		this.isLive = false;
 		tf.tkList.remove(this);
-		System.out.println(bGood+" tank "+id+"is dead!");
 	}
 
 	public int getY() {
@@ -93,7 +91,7 @@ public class Tank extends BaseTank{
 	public void setDir(Dir dir) {
 		this.dir = dir;
 	}
-	//好像这几段代码可以重构一下，没必要重写。没必要写两个构造
+
 	public Tank(int x, int y, Dir dir, boolean bGood) {
 		rect = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
 		this.bGood = bGood;
@@ -101,32 +99,27 @@ public class Tank extends BaseTank{
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		System.out.println(id+"joined good or bad:"+bGood);
-		if (bGood){
-			System.out.println("position"+x+"and"+y);
-		}
-		
-		//这里加入代码，从配置文件里面读类。
-		if (bGood){
-			String t = PropertyManager.INSTANCE.getString("goodTankStrategy");
-			try {
-				fs = (FireStrategy) Class.forName(t).newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			String t = PropertyManager.INSTANCE.getString("badTankStrategy");
-			try {
-				fs = (FireStrategy) Class.forName(t).newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	public Tank(TankFrame tf, int x, int y, Dir dir, boolean bGood) {
-		this(x,y,dir,bGood);
+		rect = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
+		this.bGood = bGood;
+		this.id = tankIdBase++;
 		this.tf = tf;
+		this.x = x;
+		this.y = y;
+		this.dir = dir;
+	}
+
+	public Tank(TankFrame tf, int x, int y, Dir dir, boolean good, boolean bGood) {
+		rect = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
+		this.bGood = bGood;
+		this.id = tankIdBase++;
+		this.tf = tf;
+		this.x = x;
+		this.y = y;
+		this.dir = dir;
+		this.bGood = good;
 	}
 	@Override
 	public void paint(Graphics g) {
@@ -195,7 +188,7 @@ public class Tank extends BaseTank{
 	}
 
 	public void move() {
-		if (!moving && isLive) {
+		if (!moving) {
 			return;
 		}
 		switch (dir) { // 这里要加上另外4个方向，一共8个方向的移动，修改X,Y坐标，否则没法斜着走
@@ -249,14 +242,12 @@ public class Tank extends BaseTank{
 		rect.x = x;
 		rect.y = y;
 		if (bGood && isLive) {
-			// 加入声音，这里要新建一个线程，等待它结束，自己的，活 着的才出声音，要不太吵了,这样写会堆泄露，必须要等上一个进程 结束了才能再放--BUG,同样的问题存在于其它几个地方
-			new Thread(new AudioThread("audio/tank_move.wav")).start();
-			
-/*			new Thread(new Runnable() {
+			// 加入声音，这里要新建一个线程，等待它结束，自己的，活 着的才出声音，要不太吵了
+			new Thread(new Runnable() {
 				public void run() {
 					new Audio("audio/tank_move.wav").play();
 				}
-			}).start();*/
+			}).start();
 		}
 	}
 
@@ -270,6 +261,7 @@ public class Tank extends BaseTank{
 	}
 	
 	public void fire() {
+<<<<<<< HEAD
 		fs.fire(this);
 		/**
 		 * 2020/11/18 :14:43下午
@@ -285,6 +277,19 @@ public class Tank extends BaseTank{
 		//改为audio thread
 		new Thread(new AudioThread("audio/tank_fire.wav")).start();
 		//new Thread(()->new Audio("audio/tank_fire.wav").play()).start();*/
+=======
+		int bx = x + Tank.TANK_WIDTH / 2 - Bullet.WIDTH / 2;
+		int by = y + Tank.TANK_HEIGHT / 2 - Bullet.HEIGHT / 2;
+		tf.addBullet(new Bullet(this.tf, bx, by, this.dir, this.id));
+		// 加入开火的声音 自己的才出声音
+		if (bGood) {
+			new Thread(new Runnable() {
+				public void run() {
+					new Audio("audio/tank_fire.wav").play();
+				}
+			}).start();
+		}
+>>>>>>> parent of 151cefa... 重构了部分代码，增加了敌我的开火方式，应用策略，从文件读开火的类。
 	}
 
 

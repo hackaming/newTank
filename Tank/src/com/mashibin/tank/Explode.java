@@ -24,15 +24,13 @@ public class Explode extends BaseExplode{
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
-		//只放一个声音，看能不能降低HEAP溢出的可能
-		new Thread(new AudioThread("audio/explode.wav")).start();
-		
-/*		new Thread(new Runnable(){
+		new Thread(new Runnable(){
 			public void run(){
 				new Audio("audio/explode.wav").play();
 			}
 		}).start();
-	*/
+		{
+		}
 	}
 	@Override
 	public void paint(Graphics g){

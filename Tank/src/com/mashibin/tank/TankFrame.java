@@ -38,9 +38,13 @@ public class TankFrame extends Frame {
 		setTitle("TankWar");
 		setVisible(true);
 		ResourceManager r = new ResourceManager();
+<<<<<<< HEAD
 
 		myTank = new Tank(this, GAME_WIDTH-300, GAME_HEIGHT-300, Dir.UP, true);
 		System.out.println("MyTank joined!");
+=======
+		myTank = new Tank(this, Tank.TANK_WIDTH, Tank.TANK_WIDTH, Dir.DOWN, true);
+>>>>>>> parent of 151cefa... 重构了部分代码，增加了敌我的开火方式，应用策略，从文件读开火的类。
 		tkList.add(myTank);
 		// Bullet b = new Bullet(this,30,30,Dir.DOWN);
 		// bulletList.add(b);

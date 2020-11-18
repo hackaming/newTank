@@ -8,7 +8,7 @@ import com.mashibin.tank.abstractFactory.BaseBullet;
 
 public class Bullet extends BaseBullet{
 	private  int x=0,y=0;
-	public static final int SPEED = Integer.parseInt(PropertyManager_old_Works.getInstance().get("bulletspeed").toString()),WIDTH = ResourceManager.missileRU.getWidth(),HEIGHT = ResourceManager.missileRU.getHeight();
+	public static final int SPEED = Integer.parseInt(PropertyManager.getInstance().get("bulletspeed").toString()),WIDTH = ResourceManager.missileRU.getWidth(),HEIGHT = ResourceManager.missileRU.getHeight();
 	private Dir dir;
 	private int ownerID;
 	Rectangle rect;
@@ -41,7 +41,6 @@ public class Bullet extends BaseBullet{
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		tf.bulletList.add(this);
 	}
 	@Override
 	public void paint(Graphics g){
