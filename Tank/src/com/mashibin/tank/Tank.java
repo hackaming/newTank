@@ -262,10 +262,14 @@ public class Tank extends BaseTank{
 	
 	public void fire() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		fs.fire(this);
+=======
+		//fs.fire(this);
+>>>>>>> parent of 6a5488e... 改回来了default tank factory
 		/**
 		 * 2020/11/18 :14:43下午
-		 
+		 */
 		//把上面这行注掉，变成不要开火的策略模式了，改为直接NEW，这样改动小一点，后面还要改回来。
 		int bx = this.getX() + Tank.TANK_WIDTH / 2 - Bullet.WIDTH / 2;
 		int by = this.getY() + Tank.TANK_HEIGHT / 2 - Bullet.HEIGHT / 2;
@@ -276,6 +280,7 @@ public class Tank extends BaseTank{
 		}
 		//改为audio thread
 		new Thread(new AudioThread("audio/tank_fire.wav")).start();
+<<<<<<< HEAD
 		//new Thread(()->new Audio("audio/tank_fire.wav").play()).start();*/
 =======
 		int bx = x + Tank.TANK_WIDTH / 2 - Bullet.WIDTH / 2;
@@ -290,6 +295,9 @@ public class Tank extends BaseTank{
 			}).start();
 		}
 >>>>>>> parent of 151cefa... 重构了部分代码，增加了敌我的开火方式，应用策略，从文件读开火的类。
+=======
+		//new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
+>>>>>>> parent of 6a5488e... 改回来了default tank factory
 	}
 
 

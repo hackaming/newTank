@@ -22,7 +22,7 @@ public class TankFrame extends Frame {
 	public List<Tank> tkList = new ArrayList<Tank>();
 	public List<BaseBullet> bulletList = new ArrayList<>();
 	public List<BaseExplode> explodeList = new ArrayList<>();
-	public GameFactory gf = DefaultFactory.getInstance();
+	public GameFactory gf = RectFactory.getInstance();
 	private Tank myTank = null;
 	public static int GAME_WIDTH;
 	public static int GAME_HEIGHT;
