@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class Tank {
+import com.mashibin.tank.abstractFactory.BaseTank;
+
+public class Tank extends BaseTank{
 	private int x = 5, y = 5;
 
 	Dir dir = Dir.UP;

@@ -2,7 +2,11 @@ package com.mashibin.tank;
 
 import java.io.IOException;
 import java.util.Properties;
-
+/**
+ * 应用枚举类型的单例模式
+ * @author xianming
+ *
+ */
 public enum PropertyManager {
 	INSTANCE;
 	private  Properties instance;

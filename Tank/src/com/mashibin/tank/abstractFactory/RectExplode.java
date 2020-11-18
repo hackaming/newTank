@@ -1,12 +1,14 @@
-package com.mashibin.tank;
+package com.mashibin.tank.abstractFactory;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
-import com.mashibin.tank.abstractFactory.BaseExplode;
+import com.mashibin.tank.AudioThread;
+import com.mashibin.tank.ResourceManager;
+import com.mashibin.tank.TankFrame;
 
-public class Explode extends BaseExplode{
+public class RectExplode extends BaseExplode{
+
 	private  int x=0,y=0;
 	public static final int WIDTH = ResourceManager.explosion.get(0).getWidth(),HEIGHT = ResourceManager.explosion.get(0).getHeight();
 
@@ -20,7 +22,7 @@ public class Explode extends BaseExplode{
 	}
 	private TankFrame tf;
 
-	public Explode(TankFrame tf,int x, int y) {
+	public RectExplode(TankFrame tf,int x, int y) {
 		this.tf = tf;
 		this.x = x;
 		this.y = y;
@@ -42,8 +44,8 @@ public class Explode extends BaseExplode{
 /*		int bx = x+Tank.TANK_WIDTH/2-Bullet.WIDTH/2;
 		int by = y+Tank.TANK_HEIGHT/2-Bullet.HEIGHT/2;*/
 		
-		for (int i=0;i<ResourceManager.explosion.size();i++){
-			g.drawImage(ResourceManager.explosion.get(i), x, y, null);
+		for (int i=0;i<ResourceManager.rectexplosion.size();i++){
+			g.drawImage(ResourceManager.rectexplosion.get(i), x, y, null);
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
@@ -53,4 +55,5 @@ public class Explode extends BaseExplode{
 		}
 		g.setColor(c);
 	}
+
 }

@@ -12,15 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.mashibin.tank.abstractFactory.BaseBullet;
+import com.mashibin.tank.abstractFactory.BaseExplode;
+import com.mashibin.tank.abstractFactory.DefaultFactory;
+import com.mashibin.tank.abstractFactory.GameFactory;
+import com.mashibin.tank.abstractFactory.RectFactory;
+
 public class TankFrame extends Frame {
 	List<Tank> tkList = new ArrayList<Tank>();
-	List<Bullet> bulletList = new ArrayList<Bullet>();
-	List<Explode> explodeList = new ArrayList<Explode>();
+	public List<BaseBullet> bulletList = new ArrayList<>();
+	public List<BaseExplode> explodeList = new ArrayList<>();
+	public GameFactory gf = RectFactory.getInstance();
 	private Tank myTank = null;
 	public static int GAME_WIDTH;
 	public static int GAME_HEIGHT;
 	private Random random = new Random();
 	private boolean stopGame = false;
+	
 	
 	public TankFrame(int w,int h) {
 		this.GAME_WIDTH = w;
@@ -30,6 +38,7 @@ public class TankFrame extends Frame {
 		setTitle("TankWar");
 		setVisible(true);
 		ResourceManager r = new ResourceManager();
+
 		myTank = new Tank(this, GAME_WIDTH-300, GAME_HEIGHT-300, Dir.UP, true);
 		System.out.println("MyTank joined!");
 		tkList.add(myTank);

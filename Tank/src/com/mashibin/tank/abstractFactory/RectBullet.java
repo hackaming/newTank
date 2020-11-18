@@ -1,18 +1,21 @@
-package com.mashibin.tank;
+package com.mashibin.tank.abstractFactory;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import com.mashibin.tank.abstractFactory.BaseBullet;
+import com.mashibin.tank.Dir;
+import com.mashibin.tank.PropertyManager_old_Works;
+import com.mashibin.tank.ResourceManager;
+import com.mashibin.tank.Tank;
+import com.mashibin.tank.TankFrame;
 
-public class Bullet extends BaseBullet{
+public class RectBullet extends BaseBullet{
 	private  int x=0,y=0;
 	public static final int SPEED = Integer.parseInt(PropertyManager_old_Works.getInstance().get("bulletspeed").toString()),WIDTH = ResourceManager.missileRU.getWidth(),HEIGHT = ResourceManager.missileRU.getHeight();
 	private Dir dir;
 	private int ownerID;
 	Rectangle rect;
-	@Override
 	public int getOwnerID() {
 		return ownerID;
 	}
@@ -27,14 +30,14 @@ public class Bullet extends BaseBullet{
 		this.bAlive = bAlive;
 	}
 	private TankFrame tf;
-	public Bullet(int x, int y, Dir dir,int id) {
+	public RectBullet(int x, int y, Dir dir,int id) {
 		rect = new Rectangle(x,y,WIDTH,HEIGHT);
 		this.ownerID = id;
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
-	public Bullet(TankFrame tf,int x, int y, Dir dir, int id) {
+	public RectBullet(TankFrame tf,int x, int y, Dir dir, int id) {
 		rect = new Rectangle(x,y,WIDTH,HEIGHT);
 		this.ownerID = id;
 		this.tf = tf;
@@ -47,33 +50,7 @@ public class Bullet extends BaseBullet{
 	public void paint(Graphics g){
 		Color c = g.getColor();
 		g.setColor(Color.RED);
-		switch(dir){
-		case LEFT:
-			g.drawImage(ResourceManager.missileL, x, y, null);
-			break;
-		case RIGHT:
-			g.drawImage(ResourceManager.missileR, x, y, null);
-			break;
-		case DOWN:
-			g.drawImage(ResourceManager.missileD, x, y, null);
-			break;
-		case UP:
-			g.drawImage(ResourceManager.missileU, x, y, null);
-			break;
-		case LEFTDOWN:
-			g.drawImage(ResourceManager.missileLD, x, y, null);
-			break;
-		case LEFTUP:
-			g.drawImage(ResourceManager.missileLU, x, y, null);
-			break;
-		case RIGHTDOWN:
-			g.drawImage(ResourceManager.missileRD, x, y, null);
-			break;
-		case RIGHTUP:
-			g.drawImage(ResourceManager.missileRU, x, y, null);
-			break;
-		}
-		
+		g.fillRect(x, y, 20, 20);
 		g.setColor(c);
 		move();
 	}
@@ -116,7 +93,6 @@ public class Bullet extends BaseBullet{
 		this.bAlive = false;
 		tf.bulletList.remove(this);
 	}
-	@Override
 	public void collidewithTank(Tank tank){
 		if (this.rect.intersects(tank.getRect())){
 			//我感觉这里还要产生一个爆炸

@@ -8,6 +8,25 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public class ResourceManager {
+	
+	/**
+	 * 应用饿汉式模式，即JVM加载的方式实现单例
+	 * 
+	
+	private static final ResourceManager INSTANCE = new ResourceManager();
+	
+	private ResourceManager(){
+		
+	}*/
+	/**
+	 * 用静态语句块，或者静态变量直接NEW
+
+	
+	public static ResourceManager getInstance(){
+		return INSTANCE;
+	}
+		 */
+	
 	public static BufferedImage goodTankL,goodTankR,goodTankU,goodTankD,goodTankLD,goodTankLU,goodTankRD,goodTankRU;
 	public static BufferedImage badTankL,badTankR,badTankU,badTankD,badTankLD,badTankLU,badTankRD,badTankRU;
 	
@@ -16,6 +35,7 @@ public class ResourceManager {
 	
 	public static BufferedImage missileL,missileR,missileU,missileD,missileLD,missileLU,missileRD,missileRU;
 	public static List<BufferedImage> explosion = new ArrayList<>();
+	public static List<BufferedImage> rectexplosion = new ArrayList<>();
 	
 	
 	{
@@ -72,6 +92,11 @@ public class ResourceManager {
 			for (int i=0;i<10;i++){
 				System.out.println("images/"+i+".gif");
 				explosion.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/"+i+".gif")));
+			}
+			
+			for (int i=1;i<16;i++){
+				System.out.println("images/"+i+".gif");
+				rectexplosion.add(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/e"+i+".gif")));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
